@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100vh;
+
+    .block{
+        display: flex;
+        flex: 1 100%;
+        justify-content: center;
+          align-items: center;
+        &.form{
+            background: #f7f7f7;
+          
+        }
+        &.content{
+            background: #444;
+            color: white;
+            
+        }
+    }
+}

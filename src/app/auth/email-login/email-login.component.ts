@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { collection, getFirestore } from '@angular/fire/firestore';
+import { collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { addDoc, serverTimestamp } from '@firebase/firestore';
+import { addDoc, increment, serverTimestamp } from '@firebase/firestore';
 import {
   getAuth,
   onAuthStateChanged,
@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-email-login',
@@ -35,7 +36,7 @@ export class EmailLoginComponent implements OnInit {
       passwordConfirm: ['', []],
     });
     onAuthStateChanged(this.auth, (user) => {
-      console.log('auth Change', user);
+      // console.log('auth Change', user);
     });
   }
 
@@ -93,6 +94,16 @@ export class EmailLoginComponent implements OnInit {
         await signInWithEmailAndPassword(this.auth, email, password)
           .then((cred) => {
             console.log('user logged In: ', cred.user);
+            const member = doc(this.db, 'members', cred.user.uid);
+
+            setDoc(
+              member,
+              {
+                logins: increment(1),
+                last_login: serverTimestamp(),
+              },
+              { merge: true }
+            );
             this.router.navigate(['dashboard']);
           })
           .catch((err) => {
@@ -106,14 +117,19 @@ export class EmailLoginComponent implements OnInit {
             // console.log('user created: ', cred.user);
             const member = cred.user;
             // console.log('user logged In: ', member.uid);
-            addDoc(this.colRef, {
-              email: email,
-              uid: member.uid,
-              created: serverTimestamp(),
-              last_login: serverTimestamp(),
-              logins: 1,
-              ProfileComplete: false,
-            });
+            const docRef = doc(this.colRef, member.uid);
+            setDoc(
+              docRef,
+              {
+                email: email,
+                uid: member.uid,
+                created: serverTimestamp(),
+                last_login: serverTimestamp(),
+                logins: 1,
+                ProfileComplete: false,
+              },
+              { merge: true }
+            );
             console.log('docRef: ');
             this.router.navigate(['dashboard']);
           })

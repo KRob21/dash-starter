@@ -9,8 +9,8 @@
         flex: 1 100%;
         justify-content: center;
           align-items: center;
+          text-align: center;
         &.form{
-            background: #f7f7f7;
           
         }
         &.content{
@@ -19,4 +19,9 @@
             
         }
     }
+}
+
+.button-row{
+    display: flex;
+    flex-direction: row;
 }

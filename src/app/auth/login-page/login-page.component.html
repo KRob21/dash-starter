@@ -1,11 +1,10 @@
 <main class="container">
     <div class="block form">
         <div *ngIf="!(auth.currentUser)">
-
             <button mat-raised-button appGoogleSignin>login with google</button>
+            <p>or</p>
             <app-email-login></app-email-login>
         </div>
-
 
 
         <div *ngIf="(auth.currentUser)">

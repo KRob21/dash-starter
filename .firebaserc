@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "taurus-demo": {
+      "hosting": {
+        "dash-starter": [
+          "taurus-demo"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "taurus-demo"
+  }
+}

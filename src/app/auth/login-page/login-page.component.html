@@ -1,0 +1,22 @@
+<main>
+    <div *ngIf="!(auth.currentUser)">
+
+        <button mat-raised-button appGoogleSignin>login with google</button>
+        <app-email-login></app-email-login>
+    </div>
+
+
+
+    <div *ngIf="(auth.currentUser)">
+        <p>
+            Logged in as <strong>{{ auth.currentUser?.email }}</strong>
+        </p>
+        <div class="button-row">
+            <button mat-raised-button color="primary" routerLink="/dashboard">dashboard</button>
+            <button mat-stroked-button (click)="logout()">Logout</button>
+        </div>
+
+    </div>
+
+
+</main>

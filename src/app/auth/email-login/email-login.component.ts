@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { addDoc, increment, serverTimestamp } from '@firebase/firestore';
 import {
@@ -35,15 +40,17 @@ export class EmailLoginComponent implements OnInit {
       password: ['', [Validators.minLength(6), Validators.required]],
       passwordConfirm: ['', []],
     });
-    onAuthStateChanged(this.auth, (user) => {
-      // console.log('auth Change', user);
-    });
+    // onAuthStateChanged(this.auth, (user) => {
+    //   // console.log('auth Change', user);
+    // });
   }
 
+  // * toggle form typw
   changeType(val: any) {
     this.type = val;
   }
 
+  // * getters
   get isLogin() {
     return this.type === 'login';
   }
@@ -77,7 +84,6 @@ export class EmailLoginComponent implements OnInit {
 
   async onSubmit() {
     this.loading = true;
-
     // Do nothing if the form is invalid
     if (this.form.invalid) {
       return;
@@ -90,14 +96,14 @@ export class EmailLoginComponent implements OnInit {
 
     try {
       if (this.isLogin) {
-        // ? firebase 9 sign in with email code
+        // * firebase 9 sign in with email code
         await signInWithEmailAndPassword(this.auth, email, password)
           .then((cred) => {
-            console.log('user logged In: ', cred.user);
-            const member = doc(this.db, 'members', cred.user.uid);
-
+            const member = cred.user;
+            const docRef = doc(this.db, 'members', member.uid);
+            localStorage.setItem('uid', member.uid);
             setDoc(
-              member,
+              docRef,
               {
                 logins: increment(1),
                 last_login: serverTimestamp(),
@@ -108,15 +114,16 @@ export class EmailLoginComponent implements OnInit {
           })
           .catch((err) => {
             console.log(err.message);
+            this.serverMessage = err.message;
+            this.form.enable();
+            return this.form.reset();
           });
       }
       if (this.isSignup) {
-        // ? firebase 9 create user code
+        // * firebase 9 create user code
         await createUserWithEmailAndPassword(this.auth, email, password)
           .then(async (cred) => {
-            // console.log('user created: ', cred.user);
             const member = cred.user;
-            // console.log('user logged In: ', member.uid);
             const docRef = doc(this.colRef, member.uid);
             setDoc(
               docRef,
@@ -125,16 +132,18 @@ export class EmailLoginComponent implements OnInit {
                 uid: member.uid,
                 created: serverTimestamp(),
                 last_login: serverTimestamp(),
-                logins: 1,
-                ProfileComplete: false,
+                logins: increment(1),
+                profile_complete: false,
               },
               { merge: true }
             );
-            console.log('docRef: ');
             this.router.navigate(['dashboard']);
           })
           .catch((err) => {
             console.log(err.message);
+            this.serverMessage = err.message;
+            this.form.enable();
+            return this.form.reset();
           });
       }
       if (this.isPasswordReset) {
@@ -144,6 +153,8 @@ export class EmailLoginComponent implements OnInit {
     } catch (err) {
       console.log('err... ', err);
       this.serverMessage = 'err...';
+      this.form.enable();
+      return this.form.reset();
     }
 
     this.loading = false;

@@ -14,6 +14,7 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {}
   logout() {
     console.log('logging out...');
+    localStorage.clear();
     const auth = getAuth();
     signOut(auth)
       .then(() => {

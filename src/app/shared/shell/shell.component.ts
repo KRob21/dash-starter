@@ -26,6 +26,7 @@ export class ShellComponent {
 
   logout() {
     console.log('logging out...');
+    localStorage.clear();
 
     signOut(this.auth)
       .then(() => {

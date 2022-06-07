@@ -5,7 +5,7 @@ export interface Member {
   email?: string;
   phone?: string;
   birthday?: string;
-  profileComplete?: boolean;
+  profile_complete?: boolean;
   profile_img?: string;
   created?: string;
   last_login?: string;

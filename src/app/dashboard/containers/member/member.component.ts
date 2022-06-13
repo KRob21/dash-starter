@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  FormGroup,
+  FormControl,
+  FormArray,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { getAuth } from '@angular/fire/auth';
 import {
@@ -9,17 +15,15 @@ import {
   increment,
   setDoc,
 } from '@angular/fire/firestore';
-import { Member } from '../../models/member.model';
-import { SnackService } from '../../services/snack.service';
-import { reauthenticateWithPhoneNumber } from '@firebase/auth';
+import { Member } from '../../../models/member.model';
+import { SnackService } from '../../../services/snack.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  selector: 'app-member',
+  templateUrl: './member.component.html',
+  styleUrls: ['./member.component.scss'],
 })
-export class ProfileComponent implements OnInit {
-  form!: FormGroup;
+export class MemberComponent implements OnInit {
   loading = false;
   muid?: string;
 
@@ -28,6 +32,33 @@ export class ProfileComponent implements OnInit {
   db = getFirestore();
   colRef = collection(this.db, 'members');
 
+  member = this.auth.currentUser;
+  form = new FormGroup({
+    f_name: new FormControl(''),
+    l_name: new FormControl(''),
+    phone: new FormControl(''),
+    email: new FormControl(this.member?.email || null),
+    birthday: new FormControl(''),
+    platforms: new FormGroup({
+      netflix: new FormControl(false),
+      hulu: new FormControl(false),
+      disney: new FormControl(false),
+      prime: new FormControl(false),
+      hbo: new FormControl(false),
+      peacock: new FormControl(false),
+      paramount: new FormControl(false),
+      showtime: new FormControl(false),
+      appleTv: new FormControl(false),
+      discovery: new FormControl(false),
+      britbox: new FormControl(false),
+      acorn: new FormControl(false),
+      pluto: new FormControl(false),
+      amc: new FormControl(false),
+      epix: new FormControl(false),
+      hallmark: new FormControl(false),
+      starz: new FormControl(false),
+    }),
+  });
   serverMessage: string | undefined;
 
   constructor(
@@ -42,13 +73,6 @@ export class ProfileComponent implements OnInit {
     this.muid = localStorage.getItem('uid')!;
     if (!member) {
     }
-    this.form = this.fb.group({
-      f_name: ['', [Validators.required]],
-      l_name: ['', [Validators.required]],
-      birthday: ['', [Validators.required]],
-      email: [member?.email, [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern('[0-9 ]{10}')]],
-    });
     console.log('muid ', this.muid);
   }
 
@@ -78,7 +102,6 @@ export class ProfileComponent implements OnInit {
     const mindate = new Date(min_year + '-' + _month + '-' + _day);
     const maxdate = new Date(max_year + '-' + _month + '-' + _day);
 
-    // console.log('validate age: ', dateofbirthDate);
     if (dateofbirthDate <= mindate && dateofbirthDate >= maxdate) {
       return true;
     } else return false;
@@ -92,10 +115,7 @@ export class ProfileComponent implements OnInit {
     }
     // Disable the form
     this.form.disable();
-
     if (this.validateAge()) {
-      console.log(this.form.value);
-
       const docRef = doc(this.db, 'members', this.muid!);
       setDoc(
         docRef,

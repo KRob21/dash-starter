@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProfileComponent } from './profile/profile.component';
+import { MemberComponent } from './containers/member/member.component';
+import { MemberProfileComponent } from './components/member-profile/member-profile.component';
+import { PlatformSelectorComponent } from './components/platform-selector/platform-selector.component';
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [MemberComponent, MemberProfileComponent, PlatformSelectorComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

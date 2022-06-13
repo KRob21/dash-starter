@@ -1,0 +1,13 @@
+.checkboxes{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 650px;
+
+    .mat-checkbox{
+margin: 11px;
+
+ flex: 1;
+    } 
+}

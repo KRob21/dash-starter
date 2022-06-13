@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>User Profile</h2>
+    <p>please complete your profile.</p>
+
+    <div mat-card>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <member-profile [parent]="form"></member-profile>
+
+            <platform-selector [parent]="form"></platform-selector>
+
+
+            <div class="button-row">
+                <button type="submit" [disabled]="form.invalid || loading">update profile</button>
+            </div>
+
+            <mat-error class="server-error">{{ serverMessage }}</mat-error>
+        </form>
+    </div>
+</div>

@@ -3,14 +3,16 @@
     flex-direction: column;
     text-align: center;
     height: 100vh;
-}
-
-.mat-card{
+    .mat-card{
     width: 450px;
     height: auto;
     padding: 11px 44px;
     text-align: center;
+    flex-direction: column;
     form{
         width: 100%;
+
     }
 }
+}
+

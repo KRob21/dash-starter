@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // custome components
 import { ShellComponent } from './shell/shell.component';
@@ -38,6 +39,7 @@ const modules = [
   MatSnackBarModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatCheckboxModule,
 ];
 @NgModule({
   declarations: [...components],

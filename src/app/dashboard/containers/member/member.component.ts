@@ -48,7 +48,7 @@ export class MemberComponent implements OnInit {
       peacock: new FormControl(false),
       paramount: new FormControl(false),
       showtime: new FormControl(false),
-      appleTv: new FormControl(false),
+      apple: new FormControl(false),
       discovery: new FormControl(false),
       britbox: new FormControl(false),
       acorn: new FormControl(false),

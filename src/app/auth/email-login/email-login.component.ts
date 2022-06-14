@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { addDoc, increment, serverTimestamp } from '@firebase/firestore';
+import { Member } from '../../models/member.model';
 import {
   getAuth,
   onAuthStateChanged,
@@ -15,7 +16,6 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth';
-import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-email-login',
@@ -123,20 +123,22 @@ export class EmailLoginComponent implements OnInit {
         // * firebase 9 create user code
         await createUserWithEmailAndPassword(this.auth, email, password)
           .then(async (cred) => {
-            const member = cred.user;
-            const docRef = doc(this.colRef, member.uid);
-            setDoc(
-              docRef,
-              {
-                email: email,
-                uid: member.uid,
-                created: serverTimestamp(),
-                last_login: serverTimestamp(),
-                logins: increment(1),
-                profile_complete: false,
-              },
-              { merge: true }
-            );
+            const member = {
+              id: cred.user.uid,
+              f_name: '',
+              l_name: '',
+              email: cred.user?.email || undefined,
+              phone: '',
+              birthday: '',
+              profile_complete: false,
+              profile_img: cred.user.photoURL || undefined,
+              created: serverTimestamp(),
+              last_login: serverTimestamp(),
+              logins: 1,
+              role: 'member',
+            };
+            const docRef = doc(this.colRef, member.id);
+            setDoc(docRef, member, { merge: true });
             this.router.navigate(['dashboard']);
           })
           .catch((err) => {

@@ -7,7 +7,15 @@ export interface Member {
   birthday?: string;
   profile_complete?: boolean;
   profile_img?: string;
-  created?: string;
-  last_login?: string;
+  created?: Date;
+  last_login?: Date;
   logins?: number;
+  role: Roles;
+}
+
+export interface Roles {
+  subscriber?: boolean;
+  member?: boolean;
+  client?: boolean;
+  admin?: boolean;
 }

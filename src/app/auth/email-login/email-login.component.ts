@@ -36,6 +36,8 @@ export class EmailLoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
+      f_name: ['', [Validators.required]],
+      l_name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6), Validators.required]],
       passwordConfirm: ['', []],
@@ -63,6 +65,12 @@ export class EmailLoginComponent implements OnInit {
     return this.type === 'reset';
   }
 
+  get f_name() {
+    return this.form.get('f_name');
+  }
+  get l_name() {
+    return this.form.get('l_name');
+  }
   get email() {
     return this.form.get('email');
   }
@@ -91,6 +99,8 @@ export class EmailLoginComponent implements OnInit {
     // Disable the form
     this.form.disable();
 
+    const f_name = this.f_name?.value;
+    const l_name = this.l_name?.value;
     const email = this.email?.value;
     const password = this.password?.value;
 
@@ -125,13 +135,10 @@ export class EmailLoginComponent implements OnInit {
           .then(async (cred) => {
             const member = {
               id: cred.user.uid,
-              f_name: '',
-              l_name: '',
-              email: cred.user?.email || undefined,
-              phone: '',
-              birthday: '',
+              f_name: f_name,
+              l_name: l_name,
+              email: email,
               profile_complete: false,
-              profile_img: cred.user.photoURL || undefined,
               created: serverTimestamp(),
               last_login: serverTimestamp(),
               logins: 1,

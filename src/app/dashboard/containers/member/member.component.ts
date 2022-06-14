@@ -26,6 +26,7 @@ import { SnackService } from '../../../services/snack.service';
 export class MemberComponent implements OnInit {
   loading = false;
   muid?: string;
+  profileComplete: boolean = false;
 
   // * firebase variables
   auth = getAuth();
@@ -33,31 +34,31 @@ export class MemberComponent implements OnInit {
   colRef = collection(this.db, 'members');
 
   member = this.auth.currentUser;
+
+  // * profile form
   form = new FormGroup({
-    f_name: new FormControl(''),
-    l_name: new FormControl(''),
     phone: new FormControl(''),
     email: new FormControl(this.member?.email || null),
     birthday: new FormControl(''),
-    platforms: new FormGroup({
-      netflix: new FormControl(false),
-      hulu: new FormControl(false),
-      disney: new FormControl(false),
-      prime: new FormControl(false),
-      hbo: new FormControl(false),
-      peacock: new FormControl(false),
-      paramount: new FormControl(false),
-      showtime: new FormControl(false),
-      apple: new FormControl(false),
-      discovery: new FormControl(false),
-      britbox: new FormControl(false),
-      acorn: new FormControl(false),
-      pluto: new FormControl(false),
-      amc: new FormControl(false),
-      epix: new FormControl(false),
-      hallmark: new FormControl(false),
-      starz: new FormControl(false),
-    }),
+    // platforms: new FormGroup({
+    //   netflix: new FormControl(false),
+    //   hulu: new FormControl(false),
+    //   disney: new FormControl(false),
+    //   prime: new FormControl(false),
+    //   hbo: new FormControl(false),
+    //   peacock: new FormControl(false),
+    //   paramount: new FormControl(false),
+    //   showtime: new FormControl(false),
+    //   apple: new FormControl(false),
+    //   discovery: new FormControl(false),
+    //   britbox: new FormControl(false),
+    //   acorn: new FormControl(false),
+    //   pluto: new FormControl(false),
+    //   amc: new FormControl(false),
+    //   epix: new FormControl(false),
+    //   hallmark: new FormControl(false),
+    //   starz: new FormControl(false),
+    // }),
   });
   serverMessage: string | undefined;
 
@@ -68,20 +69,14 @@ export class MemberComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const member = this.auth.currentUser;
-    console.log(member);
+    console.log(this.member);
     this.muid = localStorage.getItem('uid')!;
-    if (!member) {
+    if (!this.member) {
     }
     console.log('muid ', this.muid);
   }
 
-  get f_name() {
-    return this.form.get('f_name');
-  }
-  get l_name() {
-    return this.form.get('l_name');
-  }
+  // * form getters
   get email() {
     return this.form.get('email');
   }
@@ -92,9 +87,10 @@ export class MemberComponent implements OnInit {
     return this.form.get('birthday');
   }
 
+  // * validate a users age if needed
   validateAge() {
     const max_year = new Date().getFullYear() - 100;
-    const min_year = new Date().getFullYear() - 21;
+    const min_year = new Date().getFullYear() - 18; // set the number of years to the age requirement
     const _month = new Date().getMonth() + 1;
     const _day = new Date().getDay();
 
@@ -116,18 +112,18 @@ export class MemberComponent implements OnInit {
     // Disable the form
     this.form.disable();
     if (this.validateAge()) {
-      const docRef = doc(this.db, 'members', this.muid!);
+      const docRef = doc(this.db, 'members', this.member!.uid);
       setDoc(
         docRef,
         {
-          f_name: this.form.value.f_name,
-          l_name: this.form.value.l_name,
           birthday: this.form.value.birthday,
           phone: this.form.value.phone,
-          email: this.form.value.email,
         },
         { merge: true }
       );
+      // set localstorage for better user experience in testing
+      localStorage.setItem('profileCompleted', 'true');
+      this.profileComplete = true;
     } else {
       this.snack.ageError();
     }

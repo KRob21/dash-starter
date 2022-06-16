@@ -37,7 +37,11 @@ export class MemberComponent implements OnInit {
 
   // * profile form
   form = new FormGroup({
-    phone: new FormControl(''),
+    phone: new FormControl('', [
+      Validators.maxLength(10),
+      Validators.minLength(10),
+      Validators.pattern('^[0-9]*$'),
+    ]),
     email: new FormControl(this.member?.email || null),
     birthday: new FormControl(''),
     // platforms: new FormGroup({

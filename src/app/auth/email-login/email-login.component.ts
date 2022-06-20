@@ -11,7 +11,6 @@ import { addDoc, increment, serverTimestamp } from '@firebase/firestore';
 import { Member } from '../../models/member.model';
 import {
   getAuth,
-  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -42,14 +41,12 @@ export class EmailLoginComponent implements OnInit {
       password: ['', [Validators.minLength(6), Validators.required]],
       passwordConfirm: ['', []],
     });
-    // onAuthStateChanged(this.auth, (user) => {
-    //   // console.log('auth Change', user);
-    // });
   }
 
-  // * toggle form typw
+  // * toggle form type
   changeType(val: any) {
     this.type = val;
+    //  TODO build the form based on the type of form.
   }
 
   // * getters
@@ -107,6 +104,7 @@ export class EmailLoginComponent implements OnInit {
     try {
       if (this.isLogin) {
         // * firebase 9 sign in with email code
+        // TODO move into AUTH service
         await signInWithEmailAndPassword(this.auth, email, password)
           .then((cred) => {
             const member = cred.user;
@@ -131,6 +129,7 @@ export class EmailLoginComponent implements OnInit {
       }
       if (this.isSignup) {
         // * firebase 9 create user code
+        // TODO move into AUTH service
         await createUserWithEmailAndPassword(this.auth, email, password)
           .then(async (cred) => {
             const member = {
@@ -146,7 +145,7 @@ export class EmailLoginComponent implements OnInit {
             };
             const docRef = doc(this.colRef, member.id);
             setDoc(docRef, member, { merge: true });
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['dashboard/profile']);
           })
           .catch((err) => {
             console.log(err.message);

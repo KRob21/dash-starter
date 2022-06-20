@@ -13,12 +13,6 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
   },
-  // {
-  //   path: 'kanban',
-  //   loadChildren: () =>
-  //     import('../kanban/kanban.module').then((m) => m.KanbanModule),
-  //   canActivate: [AuthGuard],
-  // },
   // { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

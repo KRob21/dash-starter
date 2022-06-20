@@ -1,13 +1,41 @@
+<mat-toolbar>
+    <mat-toolbar-row color="primary">
+        <span>user profile</span>
+    </mat-toolbar-row>
+</mat-toolbar>
 <div class="container">
     <div *ngIf="profileComplete === false">
-        <h2>User Profile</h2>
         <p>please complete your profile.</p>
 
-        <div mat-card>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card class="profile-card">
+            <mat-list>
+                <mat-list-item>
+                    <p>First Name: {{member?.f_name}} </p>
+                </mat-list-item>
+                <mat-list-item>
+                    <p>Last Name: {{member?.l_name}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                    <p>Email Address: {{member?.email}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                    <p>Phone: {{member?.phone}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                    <p>Birthday: {{member?.birthday}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                    <p>Role: {{member?.role}}</p>
+                </mat-list-item>
+
+                <button mat-raised-button (click)="editProfile()">edit profile</button>
+            </mat-list>
+
+
+            <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <user-profile [parent]="form"></user-profile>
 
-                <!-- <platform-selector [parent]="form"></platform-selector> -->
+                <platform-selector [parent]="form"></platform-selector>
 
 
                 <div class="button-row">
@@ -15,10 +43,11 @@
                 </div>
 
                 <mat-error class="server-error">{{ serverMessage }}</mat-error>
-            </form>
-        </div>
+            </form> -->
+        </mat-card>
     </div>
     <div *ngIf="profileComplete == true">
         welcome to the show!
+
     </div>
 </div>

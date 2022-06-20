@@ -12,13 +12,13 @@ export class LoginPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
   logout() {
-    console.log('logging out...');
-    localStorage.clear();
     const auth = getAuth();
     signOut(auth)
       .then(() => {
         console.log('the user signed out');
+        localStorage.clear();
       })
       .catch((err) => {
         console.log('error: ', err);

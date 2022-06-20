@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'member-profile',
-  templateUrl: './member-profile.component.html',
-  styleUrls: ['./member-profile.component.scss'],
+  selector: 'user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.scss'],
 })
-export class MemberProfileComponent {
+export class UserProfileComponent {
   @Input()
   parent!: FormGroup;
 

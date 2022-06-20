@@ -1,13 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MemberComponent } from './containers/member/member.component';
+import { AuthGuard } from '../auth/auth.guard';
+import { HomeComponent } from './home/home.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
-    path: 'member',
-    component: MemberComponent,
+    path: 'profile',
+    component: UserComponent,
   },
-  { path: '', redirectTo: 'member', pathMatch: 'full' },
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  // {
+  //   path: 'kanban',
+  //   loadChildren: () =>
+  //     import('../kanban/kanban.module').then((m) => m.KanbanModule),
+  //   canActivate: [AuthGuard],
+  // },
+  // { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({

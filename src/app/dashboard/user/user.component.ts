@@ -15,15 +15,14 @@ import {
   increment,
   setDoc,
 } from '@angular/fire/firestore';
-import { Member } from '../../../models/member.model';
-import { SnackService } from '../../../services/snack.service';
-
+import { Member } from '../../models/member.model';
+import { SnackService } from '../../services/snack.service';
 @Component({
-  selector: 'app-member',
-  templateUrl: './member.component.html',
-  styleUrls: ['./member.component.scss'],
+  selector: 'app-user',
+  templateUrl: 'user.component.html',
+  styleUrls: ['./user.component.scss'],
 })
-export class MemberComponent implements OnInit {
+export class UserComponent implements OnInit {
   loading = false;
   muid?: string;
   profileComplete: boolean = false;
@@ -95,13 +94,18 @@ export class MemberComponent implements OnInit {
   validateAge() {
     const max_year = new Date().getFullYear() - 100;
     const min_year = new Date().getFullYear() - 18; // set the number of years to the age requirement
+    console.log('min_year ', min_year);
+    console.log('max_year ', max_year);
     const _month = new Date().getMonth() + 1;
     const _day = new Date().getDay();
-
+    console.log('_month ', _month);
+    console.log('_day ', _day);
     const dateofbirthDate = this.birthday?.value;
-    const mindate = new Date(min_year + '-' + _month + '-' + _day);
-    const maxdate = new Date(max_year + '-' + _month + '-' + _day);
-
+    console.log('dateofbirthDate ', dateofbirthDate);
+    const mindate = new Date('June 19, 2001 03:24:00');
+    const maxdate = new Date('June 19, 1922 03:24:00');
+    console.log('mindate ', mindate);
+    console.log('maxdate ', maxdate);
     if (dateofbirthDate <= mindate && dateofbirthDate >= maxdate) {
       return true;
     } else return false;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
+import { SplashPageComponent } from './splash-page/splash-page.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -20,7 +20,7 @@ const routes: Routes = [
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
     canActivate: [AuthGuard],
   },
-  { path: '', component: HomePageComponent },
+  { path: '', component: SplashPageComponent },
 ];
 
 @NgModule({

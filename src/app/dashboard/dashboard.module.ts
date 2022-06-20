@@ -4,12 +4,22 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MemberComponent } from './containers/member/member.component';
-import { MemberProfileComponent } from './components/member-profile/member-profile.component';
-import { PlatformSelectorComponent } from './components/platform-selector/platform-selector.component';
+import { UserComponent } from './user/user.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { PlatformSelectorComponent } from './user/platform-selector/platform-selector.component';
+import { ListPageComponent } from './members/list-page/list-page.component';
+import { DetailPageComponent } from './members/detail-page/detail-page.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [MemberComponent, MemberProfileComponent, PlatformSelectorComponent],
+  declarations: [
+    UserComponent,
+    UserProfileComponent,
+    PlatformSelectorComponent,
+    ListPageComponent,
+    DetailPageComponent,
+    HomeComponent,
+  ],
   imports: [
     CommonModule,
     DashboardRoutingModule,

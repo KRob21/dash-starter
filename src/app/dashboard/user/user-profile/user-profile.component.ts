@@ -12,6 +12,15 @@ export class UserProfileComponent {
 
   ngOnInit(): void {}
 
+  get f_name() {
+    return this.parent.get('f_name');
+  }
+  get l_name() {
+    return this.parent.get('l_name');
+  }
+  get email() {
+    return this.parent.get('email');
+  }
   get phone() {
     return this.parent.get('phone');
   }

@@ -1,4 +1,16 @@
 <div [formGroup]="parent" class="content">
+    <mat-form-field [color]="f_name?.valid && 'accent'">
+        <input matInput formControlName="f_name" type="text" placeholder="First Name" autocomplete="off" />
+        <mat-error *ngIf="f_name?.dirty || f_name?.touched">
+            First name is required
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field [color]="l_name?.valid && 'accent'">
+        <input matInput formControlName="l_name" type="text" placeholder="Last Name" autocomplete="off" />
+        <mat-error *ngIf="l_name?.dirty || l_name?.touched">
+            Last name is required
+        </mat-error>
+    </mat-form-field>
     <mat-form-field [color]="phone?.valid && 'accent'">
         <input matInput formControlName="phone" type="text" placeholder="Phone number" autocomplete="off" />
         <mat-error *ngIf="phone?.dirty || phone?.touched">

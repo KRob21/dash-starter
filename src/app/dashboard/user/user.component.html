@@ -5,9 +5,7 @@
 </mat-toolbar>
 <div class="container">
     <div *ngIf="profileComplete === false">
-        <p>please complete your profile.</p>
-
-        <mat-card class="profile-card">
+        <mat-card class="profile-card" *ngIf="!showForm">
             <mat-list>
                 <mat-list-item>
                     <p>First Name: {{member?.f_name}} </p>
@@ -27,15 +25,15 @@
                 <mat-list-item>
                     <p>Role: {{member?.role}}</p>
                 </mat-list-item>
-
-                <button mat-raised-button (click)="editProfile()">edit profile</button>
+                <a mat-raised-button (click)="editProfile()">edit profile</a>
             </mat-list>
-
-
-            <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        </mat-card>
+        <mat-card *ngIf="showForm">
+            <p>please complete your profile.</p>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <user-profile [parent]="form"></user-profile>
 
-                <platform-selector [parent]="form"></platform-selector>
+                <!-- <platform-selector [parent]="form"></platform-selector> -->
 
 
                 <div class="button-row">
@@ -43,7 +41,7 @@
                 </div>
 
                 <mat-error class="server-error">{{ serverMessage }}</mat-error>
-            </form> -->
+            </form>
         </mat-card>
     </div>
     <div *ngIf="profileComplete == true">

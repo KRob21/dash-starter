@@ -32,14 +32,10 @@
             <p>please complete your profile.</p>
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <user-profile [parent]="form"></user-profile>
-
                 <!-- <platform-selector [parent]="form"></platform-selector> -->
-
-
                 <div class="button-row">
                     <button mat-button type="submit" [disabled]="form.invalid || loading">update profile</button>
                 </div>
-
                 <mat-error class="server-error">{{ serverMessage }}</mat-error>
             </form>
         </mat-card>

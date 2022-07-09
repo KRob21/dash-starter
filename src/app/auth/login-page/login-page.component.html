@@ -1,5 +1,5 @@
-<main class="container">
-    <div class="block form">
+<main class="flex min-h-screen content-center">
+    <div class="basis-1/2">
         <div *ngIf="!(auth.currentUser)">
             <button mat-raised-button appGoogleSignin>login with google</button>
             <p>or</p>
@@ -21,7 +21,7 @@
 
 
 
-    <div class="block content">
+    <div class="basis-1/2">
         <h2>Welcome to our app!</h2>
     </div>
 

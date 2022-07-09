@@ -1,5 +1,5 @@
-<mat-card>
-    <div *ngIf="isSignup">
+<div class="flex-shrink-0  w-full mx-auto  min-h-screen content-center justify-center">
+    <div *ngIf=" isSignup">
         <h3>create your account</h3>
     </div>
 
@@ -13,7 +13,7 @@
         <button size="small" mat-button (click)="changeType('login')">Back</button>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="rounded-xl shadow-xl max-w-md mx-auto my-20 p-6">
 
         <mat-form-field [color]="email?.valid && 'accent'">
             <input matInput formControlName="email" type="email" placeholder="Email" autocomplete="off" />
@@ -45,15 +45,19 @@
         <button *ngIf="isPasswordReset" mat-stroked-button type="submit" [disabled]="loading">
             Send Reset Email
         </button>
-        <div class="button-row">
-            <button *ngIf="!isPasswordReset" mat-raised-button color="primary" type="submit"
-                [disabled]="form.invalid || !passwordDoesMatch || loading">
+        <div class="flex flex-row">
+
+
+            <button *ngIf="!isPasswordReset" class="flex-1 rounded-md text-white bg-sky-600 hover:bg-sky-700 text-sm"
+                type="submit" [disabled]="form.invalid || !passwordDoesMatch || loading">
                 <span *ngIf="isLogin">Log in</span> <span *ngIf="isSignup">create account</span>
             </button>
-            <button mat-stroked-button (click)="changeType('login')" *ngIf="isSignup">
+            <button class="flex-1 bg-blue-500 hover:bg-nav-hover-blue rounded-md text-white text-sm"
+                (click)="changeType('login')" *ngIf="isSignup">
                 Returning user?
             </button>
-            <button size="small" mat-stroked-button (click)="changeType('signup')" *ngIf="isLogin">
+            <button class="flex-1 bg-blue-500 hover:bg-nav-hover-blue rounded-md text-white text-sm"
+                (click)="changeType('signup')" *ngIf="isLogin">
                 New user?
             </button>
         </div>
@@ -63,4 +67,4 @@
     <button mat-button *ngIf="isLogin && !isPasswordReset" (click)="changeType('reset')">
         Forgot password?
     </button>
-</mat-card>
+</div>

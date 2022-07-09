@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatSelectModule } from '@angular/material/select';
 // custome components
 import { ShellComponent } from './shell/shell.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -40,6 +40,7 @@ const modules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatCheckboxModule,
+  MatSelectModule,
 ];
 @NgModule({
   declarations: [...components],

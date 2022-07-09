@@ -38,6 +38,7 @@ export class EmailLoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(6), Validators.required]],
       passwordConfirm: ['', []],
+      agree_to_terms: [false, [Validators.requiredTrue]],
     });
   }
 

@@ -1,21 +1,58 @@
+@import "../../../sass/third-party/include-media";
 .container{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     height: 100vh;
 
+    @include media("≤tablet"){
+        flex-direction: column;
+    }
+
     .block{
         display: flex;
-        flex: 1 100%;
-        justify-content: center;
-          align-items: center;
-          text-align: center;
+        flex: 1 1 0;
+        justify-content: center; 
+        text-align: center;
+        margin-top: 44px;
+
         &.form{
+            &.inserted{
+                width: 100%;
+                @include media("≤tablet"){
+                    padding: 0 22px;
+                    max-width: 350px;
+                }
+            }
+            h1{
+                margin-bottom: 0px;
+                text-transform: uppercase;
+                @include media("≤tablet"){
+    }
+            }
+            p{
+                max-width: 400px;
+                text-align: center;
+                margin:  11px auto 22px;
+                font-size: 18px;
+                @include media("≤tablet"){
+        font-size: 12px;
+        margin: 22px;
+        max-width: 350px;
+        width: 100%
+    }
+            }
+            .subtitle{
+                margin-top: 0;
+                text-transform: uppercase;
+            }
           
         }
         &.content{
-            background: #444;
+            background: #223141;
             color: white;
+            flex-direction: column;
+            padding: 88px
             
         }
     }

@@ -70,11 +70,7 @@ export class HomeComponent implements OnInit {
         }
       });
     });
-    // unsubscribe();
-    console.log(this.regMembers);
   }
 
-  ngOnInit(): void {
-    console.log(this.regMembers);
-  }
+  ngOnInit(): void {}
 }

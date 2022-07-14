@@ -1,16 +1,13 @@
-<main class="container">
-    <div class="block form">
-        <div class="inserted" *ngIf="!(auth.currentUser)">
-
-            <h2>Please register for the club.</h2>
-            <p>We are excited to share our experiences with you.</p>
+<main class="container bg-white">
+    <div class="block">
+        <div *ngIf="!(auth.currentUser)">
             <!-- <button mat-raised-button appGoogleSignin>login with google</button>
             <p>or</p> -->
             <app-email-login></app-email-login>
         </div>
 
 
-        <div class="inserted" *ngIf="(auth.currentUser)">
+        <div *ngIf="(auth.currentUser)">
             <p>
                 Logged in as <strong>{{ auth.currentUser?.email }}</strong>
             </p>

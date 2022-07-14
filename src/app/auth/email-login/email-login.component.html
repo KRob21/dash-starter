@@ -39,6 +39,8 @@
                 Password does not match
             </mat-error>
         </mat-form-field>
+        <mat-checkbox formControlName="agree_to_terms" (click)="openTermsDialog()">I agree to terms and conditions
+        </mat-checkbox>
 
         <mat-error class="server-error">{{ serverMessage }}</mat-error>
 

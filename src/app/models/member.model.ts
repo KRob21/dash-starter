@@ -11,6 +11,7 @@ export interface Member {
   last_login?: Date;
   logins?: number;
   role: Roles;
+  agreed_to_terms?: boolean;
 }
 
 export interface Roles {

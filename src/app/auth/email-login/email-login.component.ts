@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormsModule,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { addDoc, increment, serverTimestamp } from '@firebase/firestore';
-import { Member } from '../../models/member.model';
+
+import { collection, doc, getFirestore, setDoc } from '@angular/fire/firestore';
+import { increment, serverTimestamp } from '@firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -16,6 +16,12 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth';
 
+// dialogs
+import { MatDialog } from '@angular/material/dialog';
+import { TermsDialogComponent } from '../dialogs/terms-dialog.component';
+
+import { Member } from '../../models/member.model';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-email-login',
   templateUrl: './email-login.component.html',
@@ -31,7 +37,12 @@ export class EmailLoginComponent implements OnInit {
 
   serverMessage: string | undefined;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    public authService: AuthService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -79,6 +90,20 @@ export class EmailLoginComponent implements OnInit {
       return this.password!.value === this.passwordConfirm!.value;
     }
   }
+  openTermsDialog(): void {
+    const dialogRef = this.dialog.open(TermsDialogComponent, {
+      width: '400px',
+      data: { terms: 'this is some board data' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.form.get('agree_to_terms')?.setValue(true);
+      } else {
+        this.form.get('agree_to_terms')?.setValue(false);
+      }
+    });
+  }
 
   async onSubmit() {
     this.loading = true;
@@ -88,9 +113,7 @@ export class EmailLoginComponent implements OnInit {
     }
     // Disable the form
     this.form.disable();
-
-    // const f_name = this.f_name?.value;
-    // const l_name = this.l_name?.value;
+    // Get the email and password
     const email = this.email?.value;
     const password = this.password?.value;
 
@@ -106,7 +129,7 @@ export class EmailLoginComponent implements OnInit {
             setDoc(
               docRef,
               {
-                logins: increment(1),
+                total_logins: increment(1),
                 last_login: serverTimestamp(),
               },
               { merge: true }
@@ -127,14 +150,13 @@ export class EmailLoginComponent implements OnInit {
           .then(async (cred) => {
             const member = {
               id: cred.user.uid,
-              // f_name: f_name,
-              // l_name: l_name,
               email: email,
               profile_complete: false,
               created: serverTimestamp(),
               last_login: serverTimestamp(),
-              logins: 1,
+              total_logins: 1,
               role: 'member',
+              agreed_to_terms: this.form.get('agree_to_terms')?.value,
             };
             const docRef = doc(this.colRef, member.id);
             setDoc(docRef, member, { merge: true });

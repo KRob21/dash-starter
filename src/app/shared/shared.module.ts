@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 // custome components
 import { ShellComponent } from './shell/shell.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const components = [ShellComponent];
 
@@ -41,6 +42,7 @@ const modules = [
   MatNativeDateModule,
   MatCheckboxModule,
   MatSelectModule,
+  MatDialogModule,
 ];
 @NgModule({
   declarations: [...components],

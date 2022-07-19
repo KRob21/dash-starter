@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { GoogleSigninDirective } from '../directives/google-signin.directive';
 import { EmailLoginComponent } from './email-login/email-login.component';
-import { TermsDialogComponent } from './dialogs/terms-dialog.component';
+import { TermsDialogComponent } from '../dialogs/terms-dialog/terms-dialog.component';
 
 @NgModule({
   declarations: [

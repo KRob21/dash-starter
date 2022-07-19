@@ -18,10 +18,10 @@ import {
 
 // dialogs
 import { MatDialog } from '@angular/material/dialog';
-import { TermsDialogComponent } from '../dialogs/terms-dialog.component';
+import { TermsDialogComponent } from '../../dialogs/terms-dialog/terms-dialog.component';
 
 import { Member } from '../../models/member.model';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-email-login',
   templateUrl: './email-login.component.html',

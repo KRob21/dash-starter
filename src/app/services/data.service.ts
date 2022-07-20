@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import states from '../../assets/data/states.json';
+import states from ' ./../../assets/data/states.json';
 
 interface Response {
   data: any;

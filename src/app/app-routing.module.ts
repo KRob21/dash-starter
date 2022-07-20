@@ -14,6 +14,12 @@ const routes: Routes = [
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'kanban',
+    loadChildren: () =>
+      import('./kanban/kanban.module').then((m) => m.KanbanModule),
+    canActivate: [AuthGuard],
+  },
   { path: '', component: SplashPageComponent },
 ];
 

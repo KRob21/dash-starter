@@ -9,7 +9,7 @@
 
             <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a>
             <a mat-list-item routerLink="/login" (click)="drawer.close()">Login</a>
-            <!-- <a mat-list-item routerLink="/kanban" (click)="drawer.close()">Kanban Demo</a> -->
+            <a mat-list-item routerLink="/kanban" (click)="drawer.close()">Kanban Demo</a>
             <a mat-list-item routerLink="/dashboard" (click)="drawer.close()">Dashboard</a>
         </mat-nav-list>
     </mat-sidenav>
@@ -28,11 +28,12 @@
 
             <span class="fill-space"></span>
             <div *ngIf="!(isHandset$ | async)">
-                <!-- <a mat-button routerLink="/kanban">Kanban Demo</a> -->
-                <a mat-button routerLink="/dashboard">Dashboard</a>
+                <a mat-raised-button color="basic" routerLink="/kanban">Kanban Demo</a>
+                <a mat-raised-button color="basic" routerLink="/dashboard">Dashboard</a>
 
-                <a mat-button routerLink="/login" *ngIf="(!auth.currentUser)"> Login</a>
-                <a mat-button (click)="logout()" *ngIf="(auth.currentUser)"> Logout</a>
+                <!-- TODO (btns ngIf auth)  componentize into a injectable component -->
+                <a mat-raised-button color="accent" routerLink="/login" *ngIf="(!auth.currentUser)"> Login</a>
+                <a mat-stroked-button color="warn" (click)="logout()" *ngIf="(auth.currentUser)"> Logout</a>
 
             </div>
 

@@ -30,4 +30,10 @@ export class SnackService {
       .pipe(tap((_) => this.router.navigate(['/login'])))
       .subscribe();
   }
+  boardCreationSuccess() {
+    this.snackBar.open('board and task created', 'OK', {
+      duration: 5000,
+    });
+    return this.snackBar._openedSnackBarRef?.onAction().pipe(tap()).subscribe();
+  }
 }

@@ -2,6 +2,15 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 20px 10px;
+  margin: auto;
+
+songs-playlist,
+songs-favorites,
+songs-listened {
+  flex: 0 0 33%;
+  margin: 0 10px;
+}
+  
 }

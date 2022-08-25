@@ -15,7 +15,7 @@ export class Store {
     return this.subject.value;
   }
 
-  select(name: string): Observable<any> {
+  select<T>(name: string): Observable<any> {
     return this.store.pipe(pluck(name));
   }
 

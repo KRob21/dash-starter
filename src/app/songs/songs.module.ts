@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SongsPlaylistComponent } from './components/songs-playlist/songs-playlist.component';
 import { SongsListenedComponent } from './components/songs-listened/songs-listened.component';
 import { SongsFavoritesComponent } from './components/songs-favorites/songs-favorites.component';
+import { SongsListComponent } from './components/songs-list/songs-list.component';
 
 import { SongsService } from './services/songs.service';
 import { Store } from '../shared/store';
@@ -16,7 +17,7 @@ const components = [
 ];
 @NgModule({
   imports: [CommonModule, HttpClientModule],
-  declarations: [...components],
+  declarations: [...components, SongsListComponent],
   providers: [SongsService],
   exports: [...components],
 })

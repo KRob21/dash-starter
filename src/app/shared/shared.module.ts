@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
+import { Store } from './store';
 // Angular Material
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,7 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-// custome components
+// custom components
 import { ShellComponent } from './shell/shell.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -48,5 +50,6 @@ const modules = [
   declarations: [...components],
   imports: [...modules],
   exports: [...modules, ...components],
+  providers: [Store],
 })
 export class SharedModule {}

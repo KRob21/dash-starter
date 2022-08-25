@@ -1,10 +1,12 @@
-<p>home works!</p>
-<a mat-raised-button routerLink="profile"> update your profile</a>
+<div class="p-10">
 
-<h2>List of Members will go here</h2>
+    <!-- <a mat-raised-button routerLink="profile"> update your profile</a> -->
 
-<mat-list>
-    <mat-list-item *ngFor="let member of regMembers">
-        {{member.f_name}}
-    </mat-list-item>
-</mat-list>
+    <h2>List of Members</h2>
+
+    <mat-list>
+        <mat-list-item *ngFor="let member of regMembers">
+            {{member.f_name}}
+        </mat-list-item>
+    </mat-list>
+</div>

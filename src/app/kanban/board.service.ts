@@ -22,7 +22,7 @@ export class BoardService {
   constructor(private snackService: SnackService) {}
 
   /** 
-  // creates a new board 
+  // create a new board  in the 'boards' collection
 
   */
   async createBoard(data: Board) {
